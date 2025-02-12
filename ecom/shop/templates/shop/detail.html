@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script crossorigin="anonymous"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+
+    <!-- Navbar -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">&nbsp;<i class="bi bi-shop"></i>&nbsp;𝒮𝒽𝑜𝓅</a>
+                <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"
+                        data-bs-toggle="collapse" data-bs-target="#navbarNav" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-secondary" data-container="body" data-content="" data-html="true"
+                                    data-placement="bottom" data-bs-toggle="popover"
+                                    id="cart" type="button">
+                                Cart(0)
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            <div class="card shadow-sm p-3">
+                <img src="{{ product_object.image }}" class="img-fluid rounded" alt="{{ product_object.title }}">
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <h2 class="fw-bold" id="nm">{{ product_object.title }}</h2>
+            <p class="text-muted">{{ product_object.description }}</p>
+
+            <div class="d-flex align-items-center my-3">
+                <h4 class="text-success fw-bold me-3">₹{{ product_object.discount_price }}</h4>
+                <h5 class="text-danger text-decoration-line-through" id="rs">₹{{ product_object.price }}</h5>
+            </div>
+
+            <button class="btn btn-success btn-lg bn">Buy Now</button>
+            <button class="btn btn-primary btn-lg atc" id="{{ product_object.id }}">Add to Cart</button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    console.log('Item detail page is working');
+
+    // Handle "Add to Cart" button click
+    $(document).on('click', '.atc', function () {
+        console.log("The Add to Cart button is clicked");
+
+        var item_id = this.id.toString();
+        var item_name = document.getElementById("nm").innerText; // Get product name
+        var item_price = document.getElementById("rs").innerText; // Get product name
+        // var item_name = document.getElementById("nm" + item_id).innerText; // Get product name
+
+        // alert("ITEM NAME: "+item_name+" ITEM PRICE: "+item_price)
+        console.log("Item ID:", item_id, "Item Name:", item_name, "PRice:", item_price);
+
+        // Ensure cart is initialized
+        if (!cart) {
+            cart = {};
+        }
+
+        // Check if the item exists in the cart and update quantity
+        if (cart[item_id]) {
+            cart[item_id].quantity += 1;
+        } else {
+            cart[item_id] = {name: item_name, quantity: 1};
+        }
+
+        console.log("Updated Cart:", cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Update cart count and popover content
+        updateCartCount();
+        $('#cart').attr('data-content', getCartHTML()).popover('update');
+    });
+
+    // Handle "Add to Cart" button click
+    $(document).on('click', '.bn', function () {
+        alert("BUY")
+    });
+
+    function updateCartCount() {
+        document.getElementById('cart').innerHTML = "Cart (" + Object.keys(cart).length + ")";
+    }
+</script>
+</html>
