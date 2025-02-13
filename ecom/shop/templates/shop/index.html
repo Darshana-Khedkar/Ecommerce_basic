@@ -26,46 +26,52 @@
     <div class="row mb-4">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">&nbsp;<i class="bi bi-shop"></i>&nbsp;𝒮𝒽𝑜𝓅</a>
-                <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                        class="navbar-toggler"
-                        data-bs-toggle="collapse" data-bs-target="#navbarNav" type="button">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">&nbsp;<i class="bi bi-shop"></i>&nbsp;𝒮𝒽𝑜𝓅</a>
+                    <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                            class="navbar-toggler"
+                            data-bs-toggle="collapse" data-bs-target="#navbarNav" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            {% if user.is_authenticated %}
+                            <!--                            <p>Welcome, {{ user.username }}!</p>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'checkout' %}">Checkout</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <button class="btn btn-secondary" data-container="body" data-content="" data-html="true"
+                                        data-placement="bottom" data-bs-toggle="popover"
+                                        id="cart" type="button">
+                                    Cart(0)
+                                </button>
+                            </li>
+                        </ul>
                         {% if user.is_authenticated %}
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'checkout' %}">Checkout</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
-                        </li>
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 profile-menu">
+                            <li class="nav-item d-flex align-items-center" style="gap: 10px;">
+                                <p class="mb-0">Welcome, {{ user.username }}!</p>
+                                <a class="nav-link" href="#">
+                                    <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
+                                         alt="Profile Picture"
+                                         style="width: 40px; height: 40px; border-radius: 50%;">
+                                </a>
+                            </li>
+                        </ul>
                         {% endif %}
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn btn-secondary" data-container="body" data-content="" data-html="true"
-                                    data-placement="bottom" data-bs-toggle="popover"
-                                    id="cart" type="button">
-                                Cart(0)
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
-
-                    </ul>
+                    </div>
                 </div>
             </nav>
         </div>
