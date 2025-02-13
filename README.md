@@ -169,5 +169,17 @@ Now, open http://127.0.0.1:8000/ in your browser.
 - 📌 Wishlist Feature
 
 ## Project Screenshots
+- Home page
+
+![img_3.png](img_3.png)
+- Checkout Page
 
 ![img_2.png](img_2.png)
+
+- Admin Panel
+
+![img_4.png](img_4.png)
+
+- Users 
+- 
+![img_5.png](img_5.png)
